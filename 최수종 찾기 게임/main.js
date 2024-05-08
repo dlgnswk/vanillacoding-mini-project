@@ -1,142 +1,179 @@
-const main = document.querySelector('main');
 const startButton = document.querySelector('.start-button');
 const gameBoard = document.querySelector('.game-board');
 const scoreBoard = document.querySelector('.score-board');
-const timerBoard = document.querySelector('.timer-board');
 const countBoard = document.querySelector('.count-board');
 
-startButton.addEventListener('click', startGame);
 scoreBoard.style.display = 'none';
 
-let selectArr = [];
-let arrayCnt = 0;
-let number = 0;
+startButton.addEventListener('click', () => {
+  checkButtonText() === 'start' ? startgame() : resetGame();
+});
 
-while(selectArr.length < 16) {
-  number = Math.floor(Math.random() * (8 - 0)) + 0;
-  if(arrayCnt === 0) {
-    selectArr[arrayCnt] = number;
-    arrayCnt++;
-  } else {
-    let cnt = 0;
-    for(let i = 0; i < selectArr.length; i++) {
-      if(selectArr[i] == number){
-        cnt++;
-      }
-    }
-    if(cnt < 2){
+function startgame() {
+  changeButtonText();
+  makeGameBoard();
+  showScoreBoard();
+  setTimer();
+  setCount();
+}
+
+function changeButtonText() {
+  startButton.textContent = startButton.textContent === 'start' ? 'retry' : 'start';
+}
+
+function makeGameBoard() {
+  const mainImage = document.querySelector('.main-image');
+  mainImage.style.display = 'none';
+
+  const selectArr = [];
+  let arrayCnt = 0;
+  let number = 0;
+
+  while (selectArr.length < 16) {
+    number = Math.floor(Math.random() * (8 - 0)) + 0;
+    if (arrayCnt === 0) {
       selectArr[arrayCnt] = number;
       arrayCnt++;
-    }
-  }
-}
-
-let count = 8;
-let timerid;
-
-function startGame() {
-  // 시작
-  if(startButton.textContent === '시작') {
-    const mainImage = document.querySelector('.main-image');
-
-    startButton.textContent = '재시작';
-    mainImage.style.display = 'none';
-    scoreBoard.style.display = 'flex';
-
-    let time = 25;
-    timerBoard.textContent = time + '초';
-
-    timerid = setInterval(()=> timer(--time), 1000);
-    function timer(time) {
-      if(time >= 0) {
-        timerBoard.textContent = time + '초';
-      } else {
-        clearInterval(timerid);
-
-        gameBoard.innerHTML = '<img class="main-image" src="bgs/lose-bg1.jpg"/>';
+    } else {
+      let cnt = 0;
+      for (let i = 0; i < selectArr.length; i++) {
+        if (selectArr[i] == number){
+          cnt++;
+        }
       }
-    };
-
-    score(count);
-    function score(count) {
-      countBoard.textContent = count + '명';
-    }
-
-    for(let i = 1; i <= 16; i++) {
-      const div = document.createElement('div');
-      let html = "";
-      gameBoard.append(div);
-      div.classList.add('item' + i, 'select');
-      const item = document.querySelector('.item' + i)
-      html += "<div class='front'><img class='item-iamge' src='bgs/square-bg.jpg'/></div>";
-      html += "<div class='back'>"
-      if(selectArr[i - 1] === 0) { html += "<img id='choiImg' class='choi" + 1 + "' src='imgs/01.jpg' />" }
-      else if(selectArr[i - 1] === 1) { html += "<img id='choiImg' class='choi" + 2 + "' src='imgs/02.jpg' />" }
-      else if(selectArr[i - 1] === 2) { html += "<img id='choiImg' class='choi" + 3 + "' src='imgs/03.jpg' />" }
-      else if(selectArr[i - 1] === 3) { html += "<img id='choiImg' class='choi" + 4 + "' src='imgs/04.jpg' />" }
-      else if(selectArr[i - 1] === 4) { html += "<img id='choiImg' class='choi" + 5 + "' src='imgs/05.jpg' />" }
-      else if(selectArr[i - 1] === 5) { html += "<img id='choiImg' class='choi" + 6 + "' src='imgs/06.jpg' />" }
-      else if(selectArr[i - 1] === 6) { html += "<img id='choiImg' class='choi" + 7 + "' src='imgs/07.jpg' />" }
-      else if(selectArr[i - 1] === 7) { html += "<img id='choiImg' class='choi" + 8 + "' src='imgs/08.jpg' />" }
-      html += "</div>";
-
-      item.innerHTML = html;
+      if (cnt < 2){
+        selectArr[arrayCnt] = number;
+        arrayCnt++;
+      }
     }
   }
-  // 재시작
-  else {
-    const mainImage = document.querySelector('.main-image');
 
-    startButton.textContent = '시작';
-    mainImage.style.display = 'block';
-    scoreBoard.style.display = 'none';
-    clearInterval(timerid);
+  for (let i = 0; i < selectArr.length; i++) {
+    const gameBoard = document.querySelector('.game-board');
+    const imagesBoxElement = document.createElement('div');
+    const coverImageElement = document.createElement('div');
+    const flipImageElement = document.createElement('div');
+    const coverImage = document.createElement('img');
+    const flipImage = document.createElement('img');
 
-    gameBoard.innerHTML = '<img class="main-image" src="bgs/bg.png"/>';
+    gameBoard.appendChild(imagesBoxElement);
+    imagesBoxElement.appendChild(coverImageElement);
+    imagesBoxElement.appendChild(flipImageElement);
+
+    imagesBoxElement.classList.add('images-box');
+    coverImageElement.classList.add('cover-image-box');
+    flipImageElement.classList.add('flip-image-box');
+
+    flipImageElement.dataset.itemValue = selectArr[i];
+
+    coverImageElement.append(coverImage);
+    flipImageElement.append(flipImage);
+
+    coverImage.classList.add('cover-image');
+    coverImage.src = `bgs/square-bg.jpg`
+    flipImage.classList.add('flip-image');
+    flipImage.src = `imgs/0${selectArr[i] + 1}.jpg`
   }
 }
 
-gameBoard.addEventListener('click', checkImage);
+function showScoreBoard() {
+  const scoreBoard = document.querySelector('.score-board');
+  scoreBoard.style.display = 'flex';
+}
+
+function setTimer() {
+  const timerBoard = document.querySelector('.timer-board');
+  const inputTimerId = document.querySelector('.invisible-timer');
+  let time = 25;
+
+  timerBoard.textContent = time + 'sec';
+
+  const timerId = setInterval(() => timer(--time), 1000);
+  inputTimerId.value = timerId;
+
+  function timer(time) {
+    if (time >= 0) {
+      timerBoard.textContent = time + 'sec';
+    } else {
+      clearInterval(timerId);
+
+      gameBoard.innerHTML = '<img class="main-image" src="bgs/lose-bg1.jpg"/>';
+    }
+  }
+}
+
+function setCount() {
+  let count = 8;
+  countBoard.textContent = `${count} man`;
+}
+
+function resetGame() {
+  const startButton = document.querySelector('.start-button');
+  const mainImage = document.querySelector('.main-image');
+  const scoreBoard = document.querySelector('.score-board');
+  const inputTimerId = document.querySelector('.invisible-timer');
+
+  startButton.textContent = 'start';
+  mainImage.style.display = 'block';
+  scoreBoard.style.display = 'none';
+  clearInterval(inputTimerId.value);
+
+  gameBoard.innerHTML = '<img class="main-image" src="bgs/bg.png"/>';
+}
+
+function checkButtonText() {
+  const buttonText = startButton.textContent === 'start' ? 'start' : 'retry';
+  return buttonText;
+}
+
+
+gameBoard.addEventListener('click', (e) => {
+  checkImage(e)
+});
 
 let checkCount = 0;
-let firstCheck;
-let secondCheck;
+let firstCoverImage = '';
+let secondCoverImage = '';
+let firstCheck = '';
+let secondCheck = '';
 
 function checkImage(e) {
-  const coverImg = e.target.className;
-  if(coverImg === 'item-iamge') {
-
-    if(checkCount === 0) {
-      firstCheck = e.target.parentElement.nextElementSibling.children[0].className;
-      firstImg = e.target.parentElement;
-      firstImg.classList.toggle('flip');
+  if (e.target.parentElement.parentElement.className === 'images-box' && e.target.className !== 'flip-image') {
+    if (checkCount === 0) {
+      firstCheck = e.target.parentElement.nextElementSibling.dataset.itemValue;
+      firstCoverImage = e.target;
+      firstCoverImage.classList.add('flip');
 
       checkCount++;
-    } else if(checkCount === 1) {
-      secondCheck = e.target.parentElement.nextElementSibling.children[0].className;
-      secondImg = e.target.parentElement;
-      secondImg.classList.toggle('flip');
 
-      if(firstCheck !== secondCheck) {
-        checkCount = 0;
-        setTimeout(() => recover(firstImg, secondImg), 300);
-      }
-      else {
+    } else {
+      secondCheck = e.target.parentElement.nextElementSibling.dataset.itemValue;
+      secondCoverImage = e.target;
+      secondCoverImage.classList.add('flip');
+
+      if (firstCheck === secondCheck) {
+        const countBoard = document.querySelector('.count-board');
         const afterScore = Number(countBoard.textContent[0]) - 1;
-        countBoard.textContent = afterScore + '명';
-        if(afterScore === 0) {
-          clearInterval(timerid);
+
+        countBoard.textContent = afterScore + ' man';
+
+        if (afterScore === 0) {
+          const inputTimerId = document.querySelector('.invisible-timer');
+
+          clearInterval(inputTimerId.value);
 
           gameBoard.innerHTML = '<img class="main-image" src="bgs/win-bg1.jpg"/>';
         }
 
         checkCount = 0;
+      } else {
+        checkCount = 0;
+
+        setTimeout(() => {
+          firstCoverImage.classList.remove('flip');
+          secondCoverImage.classList.remove('flip');
+        }, 300);
       }
     }
   }
-}
-
-function recover(firstImg, secondImg) {
-  firstImg.classList.remove('flip');
-  secondImg.classList.remove('flip');
 }

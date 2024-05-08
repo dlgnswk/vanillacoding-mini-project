@@ -12,29 +12,41 @@
       href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="preconnect" href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect" href="https://fonts.gstatic.com" crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"
+    />
     <title>최수종 찾기</title>
     <link rel="stylesheet" href="styles.css" class="css" />
   </head>
   <body>
     <main>
       <header>
-        <div class="main-title">최수종 찾기</div>
-        <button class="start-button">시작</button>
+        <div class="main-title font-permanent">find Mr.choi</div>
+        <button class="start-button font-permanent">start</button>
       </header>
       <div class="game-board">
         <img class="main-image" src="bgs/bg.png"/>
       </div>
-      <div class="score-board">
-        <div>
-          <span>남은 시간 : </span><span class="timer-board"></span>
-        </div>
-        <div>
-          <span>남은 최수종 : </span><span class="count-board"></span>
+      <div class="info-board">
+        <div class="score-board">
+          <div>
+            <span class="font-permanent">time : </span><span class="timer-board font-permanent"></span>
+          </div>
+          <div>
+            <span class="font-permanent">missing : </span><span class="count-board font-permanent"></span>
+          </div>
         </div>
       </div>
+      <input class="invisible-timer" value=""/>
     </main>
     <footer>
-      <h1><a href="../index.html">Home</a></h1>
+      <button class="home-button font-permanent" onclick="location.href='../index.html'">Home</button>
     </footer>
   </body>
   <script src="main.js"></script>

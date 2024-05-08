@@ -1,6 +1,12 @@
+body {
+  border: solid 3px black;
+  margin: 1rem auto;
+  width: 40rem;
+}
+
 main {
   width: 30rem;
-  margin: 3rem auto;
+  margin: 3rem auto 0 auto;
 }
 
 header {
@@ -9,32 +15,40 @@ header {
 
 .main-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 4.3rem;
   font-weight: bold;
 }
 
+.font-permanent {
+  font-family: 'Permanent Marker';
+}
+
 .start-button {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   border: solid 3px black;
   border-radius: 0.3rem;
   text-align: center;
-  margin: 1rem auto;
+  margin: 1rem auto 0 auto;
   padding: 0.7rem;
-  font-size: 1.2rem;
-  width: 6rem;
+  font-size: 1.5rem;
+  width: 26rem;
   font-weight: bold;
 }
 
 .start-button:hover {
   cursor: pointer;
-  color: black;
+  color: white;
   border: solid 3px black;
-  background-color: white;
+  background-color: black;
+}
+
+.invisible-timer {
+  display: none;
 }
 
 .game-board {
-  margin: 2rem auto;
+  margin: 2rem auto 0 auto;
   display: grid;
   width: 415px;
   height: 415px;
@@ -50,7 +64,7 @@ header {
   height: 415px;
 }
 
-.item-iamge {
+.item-image {
   width: 100px;
   height: 100px;
   position: absolute;
@@ -58,30 +72,32 @@ header {
 
 .score-board {
   display: flex;
-  width: 350px;
   margin: 0 auto;
   justify-content: center;
 }
 
-.scoreBoard div {
+.score-board div {
   margin: 0 auto;
-  width: 180px;
   font-weight: bold;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
+}
+
+.images-box:hover {
+  cursor: pointer;
 }
 
 .count-board, .timer-board {
   color: red;
 }
 
-.front {
+.cover-image {
   width: 100px;
   height: 100px;
   z-index: 2;
   position: absolute;
 }
 
-#choiImg {
+.flip-image {
   width: 100px;
   height: 100px;
   z-index: 1;
@@ -106,4 +122,24 @@ a {
 a:hover {
   cursor: pointer;
   color: lightblue;
+}
+
+.info-board {
+  height: 2rem;
+}
+
+footer {
+  text-align: center;
+}
+
+.home-button {
+  border: 0;
+  font-size: 4rem;
+  margin: 1rem 0 3rem 0;
+  background-color: white;
+}
+
+.home-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
