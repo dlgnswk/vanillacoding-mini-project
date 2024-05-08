@@ -1,0 +1,109 @@
+main {
+  width: 30rem;
+  margin: 3rem auto;
+}
+
+header {
+  text-align: center;
+}
+
+.main-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.start-button {
+  background-color: black;
+  color: white;
+  border: solid 3px black;
+  border-radius: 0.3rem;
+  text-align: center;
+  margin: 1rem auto;
+  padding: 0.7rem;
+  font-size: 1.2rem;
+  width: 6rem;
+  font-weight: bold;
+}
+
+.start-button:hover {
+  cursor: pointer;
+  color: black;
+  border: solid 3px black;
+  background-color: white;
+}
+
+.game-board {
+  margin: 2rem auto;
+  display: grid;
+  width: 415px;
+  height: 415px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
+.main-image {
+  position: absolute;
+  width: 415px;
+  height: 415px;
+}
+
+.item-iamge {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.score-board {
+  display: flex;
+  width: 350px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.scoreBoard div {
+  margin: 0 auto;
+  width: 180px;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.count-board, .timer-board {
+  color: red;
+}
+
+.front {
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+  position: absolute;
+}
+
+#choiImg {
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  position: absolute;
+}
+
+.flip {
+  display: none;
+}
+
+h1 {
+  font-family: "Pacifico", cursive;
+  text-align: center;
+  font-size: 72px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  cursor: pointer;
+  color: lightblue;
+}
